@@ -14,39 +14,12 @@ public class Main {
                     4.Вывод варианта студента по фамилии
                     5.Вывод списка студентов с определенным вариантом
                     6.Вывод количества студентов с каждым вариантом
-                    7.Завершение работы программы
+                    7.Вариант(на основе кода преподавателя)
+                    8.Студент по варианту(на основе кода преподавателя)
+                    9.Завершение работы программы
                     """);
             int swtch = scanner.nextInt();
             switch (swtch) {
-                case 10: {
-                    boolean boolik = true;
-                    while (boolik) {
-                        System.out.println("1 или 2");
-                        int boolswtch = scanner.nextInt();
-                        switch (boolswtch) {
-                            case 1: {
-                                System.out.println("Фамилия");
-                                String surname = scanner.next();
-                                System.out.println("Имя");
-                                String name = scanner.next();
-                                System.out.println("Отчество");
-                                String lastname = scanner.next();
-                                System.out.println("Группа");
-                                String group = scanner.next();
-                                System.out.println("Вариант");
-                                int var = scanner.nextInt();
-                                bd.addStudent(surname, name, lastname, group, var);
-                                System.out.println();
-                            }
-                            break;
-                            case 2: {
-                                bool = false;
-                            }
-                            break;
-                        }
-                    }
-                }
-                break;
                 case 1: {//1.Равномерное распределение вариантов среди студентов от 1 до 10
                     bd.variantStudents();
                     System.out.println("Сделано");
@@ -77,8 +50,45 @@ public class Main {
                 }
                 break;
                 case 7:{
+                    bd.addVariant();
+                }break;
+                case 8:{
+                    System.out.println("Введите фамилию студента");
+                    String fam = scanner.next();
+                    bd.variantOfStudent(fam);
+                }break;
+                case 9:{
                     bool=false;
                 }break;
+                case 10: {
+                    boolean boolik = true;
+                    while (boolik) {
+                        System.out.println("1 или 2");
+                        int boolswtch = scanner.nextInt();
+                        switch (boolswtch) {
+                            case 1: {
+                                System.out.println("Фамилия");
+                                String surname = scanner.next();
+                                System.out.println("Имя");
+                                String name = scanner.next();
+                                System.out.println("Отчество");
+                                String lastname = scanner.next();
+                                System.out.println("Группа");
+                                String group = scanner.next();
+                                System.out.println("Вариант");
+                                int var = scanner.nextInt();
+                                bd.addStudent(surname, name, lastname, group, var);
+                                System.out.println();
+                            }
+                            break;
+                            case 2: {
+                                bool = false;
+                            }
+                            break;
+                        }
+                    }
+                }
+                break;
             }
         }
     }

@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.List;
 import java.util.Random;
 
 public class BD {
@@ -226,6 +227,93 @@ public class BD {
                 String surnam = resultSet.getString("student_variant");
                 String nam = resultSet.getString("student_count");
                 System.out.println(surnam +  " "+nam);
+            }
+            closeConnection(connection);
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally {
+            closeConnection(connection);
+        }
+    }
+    public void selectOneColum(String columName, String tableName, List<Integer> arr)
+    {
+        arr.clear();
+        Connection connection = null;
+        try {
+            connection = openConnection();
+            String query = "SELECT `"+columName+"` FROM `"+tableName+"`;";
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next())
+            {
+                int a = resultSet.getInt(columName);
+                arr.add(a);
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally {
+            closeConnection(connection);
+        }
+    }
+    public void addVariant()
+    {
+        RanVar ranVar = new RanVar();
+        selectOneColum("id_student", "students", ranVar.idArray);
+        ranVar.randVar();
+        Connection connection = null;
+        try {
+            connection = openConnection();
+            String query = "SELECT COUNT(*) FROM `variants`";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next())
+            {
+                if (resultSet.getInt(1)!=0)
+                {//Если есть записи в таблице, то удалить все
+                    query = "DELETE FROM `variants`";
+                    statement.executeUpdate(query);
+                }
+                for (int i=0; i<ranVar.idArray.size();i++)
+                {
+                    query = "INSERT INTO `variants` (`id_variant`, `student_id`, `variant`) " +
+                            "VALUES (NULL, "+ranVar.idArray.get(i)+" ,"+ranVar.arr[i]+");";
+                    statement = connection.prepareStatement(query);
+                    statement.executeUpdate();
+                }
+            }
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally {
+            closeConnection(connection);
+        }
+
+    }
+    public void variantOfStudent(String student_surname){
+        Connection connection = null;
+        try {
+            connection = openConnection();//SELECT * FROM `students` ORDER BY `students`.`student_variant` ASC
+            String query = "SELECT student_surname,student_name,student_lastname,variant FROM `students`,`variants` WHERE student_surname=? AND id_student=student_id";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1,student_surname);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next())
+            {
+                String surnam = resultSet.getString("student_surname");
+                String nam = resultSet.getString("student_name");
+                String group_name = resultSet.getString("student_lastname");
+                int var = resultSet.getInt("variant");
+                System.out.println(surnam +  " "+nam+" "+group_name+" "+var);
             }
             closeConnection(connection);
         }

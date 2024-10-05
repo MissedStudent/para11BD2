@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 03 2024 г., 11:18
+-- Время создания: Окт 05 2024 г., 10:22
 -- Версия сервера: 8.0.24
 -- Версия PHP: 8.0.14
 
@@ -78,6 +78,60 @@ INSERT INTO `students` (`id_student`, `student_surname`, `student_name`, `studen
 (35, 'Шарипов', 'Сергей', 'Александрович', 'ИС-22п+', 2),
 (36, 'Ярмонова', 'Елизавета', 'Сергеевна', 'ИС-22п+', 1);
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `variants`
+--
+
+CREATE TABLE `variants` (
+  `id_variant` int NOT NULL,
+  `student_id` int NOT NULL,
+  `variant` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Дамп данных таблицы `variants`
+--
+
+INSERT INTO `variants` (`id_variant`, `student_id`, `variant`) VALUES
+(100, 1, 2),
+(101, 2, 1),
+(102, 3, 9),
+(103, 4, 9),
+(104, 5, 10),
+(105, 6, 5),
+(106, 7, 1),
+(107, 8, 3),
+(108, 9, 2),
+(109, 10, 6),
+(110, 11, 10),
+(111, 12, 4),
+(112, 13, 10),
+(113, 14, 7),
+(114, 15, 5),
+(115, 16, 6),
+(116, 17, 3),
+(117, 18, 9),
+(118, 19, 8),
+(119, 20, 7),
+(120, 21, 4),
+(121, 22, 5),
+(122, 23, 3),
+(123, 24, 6),
+(124, 25, 8),
+(125, 26, 3),
+(126, 27, 1),
+(127, 28, 4),
+(128, 29, 5),
+(129, 30, 6),
+(130, 31, 4),
+(131, 32, 8),
+(132, 33, 2),
+(133, 34, 2),
+(134, 35, 7),
+(135, 36, 1);
+
 --
 -- Индексы сохранённых таблиц
 --
@@ -89,6 +143,12 @@ ALTER TABLE `students`
   ADD PRIMARY KEY (`id_student`);
 
 --
+-- Индексы таблицы `variants`
+--
+ALTER TABLE `variants`
+  ADD PRIMARY KEY (`id_variant`);
+
+--
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -97,6 +157,12 @@ ALTER TABLE `students`
 --
 ALTER TABLE `students`
   MODIFY `id_student` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT для таблицы `variants`
+--
+ALTER TABLE `variants`
+  MODIFY `id_variant` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
